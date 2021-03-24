@@ -23,10 +23,8 @@ Keeping sensitive information off disk: State is retrieved from backends on dema
 
 Remote operations: For larger infrastructures or certain changes, terraform apply can take a long, long time. Some backends support remote operations which enable the operation to execute remotely. You can then turn off your computer and your operation will still complete. Paired with remote state storage and locking above, this also helps in team environments.
 
-Steps
-what happens without the remote state.
-
-### 1) Create a s3backend.tf file ( file can be with any name ) in your working directory. Add this as the content
+### Steps:
+##### 1) Create a s3backend.tf file ( file can be with any name ) in your working directory. Add this as the content
 
 ```javascript
 terraform {
@@ -41,7 +39,7 @@ Replace the bucket name, region and path with your desired names. Make sure the 
 
 NOTE: the AWS Credentials need to have access to S3 to work with S3 as the backend to store state file.
 
-### 2) Add other main.tf (file can be with any name) file with resources and provider settings.
+##### 2) Add other main.tf (file can be with any name) file with resources and provider settings.
 
 ```javascript
 provider "aws" {
@@ -56,9 +54,9 @@ resource "aws_instance" "ec2" {
 }
 ```
 
-### 3) Initialize the working directory with below command.
+##### 3) Initialize the working directory with below command.
 
-here, you man get the [Error](https://github.com/ankushshinde/Devops-practice/blob/master/terraform/errors/configuring-S3-Backend.md) if access_key and secret_key is not configured. in this case, we can provide it with below command 
+here, you may get this [Error](https://github.com/ankushshinde/Devops-practice/blob/master/terraform/errors/configuring-S3-Backend.md) if access_key and secret_key is not configured. So in this case, we can provide it with below command 
 
 ```javascript
 terraform init -backend-config="access_key=<your-access-key>" -backend-config="secret_key=<your-secret-key>"
@@ -68,7 +66,7 @@ otherwise simply execute below command.
 ```javascript
 terraform init
 ```
-### 4 ) Apply the changes with this command
+##### 4 ) Apply the changes with this command
 ```javascript
 terraform apply
 ```
@@ -78,7 +76,7 @@ Now, Let's destroy our resources with this command
 ```javascript
 terraform destroy
 ```
-Reference
+Reference:
 
 https://www.terraform.io/docs/state/index.html
 
