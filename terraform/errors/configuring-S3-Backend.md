@@ -1,3 +1,4 @@
+```javascript
 $ terraform init
 
 Initializing the backend...
@@ -10,5 +11,4 @@ for more information about providing credentials.
 Error: NoCredentialProviders: no valid providers in chain. Deprecated.
         For verbose messaging see aws.Config.CredentialsChainVerboseErrors
 
-
-
+```
