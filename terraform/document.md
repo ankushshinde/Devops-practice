@@ -50,15 +50,15 @@ provider "aws" {
   region     = "us-east-1"
 }
 
-resource "aws_instance" "" {
-  ami           = ""
+resource "aws_instance" "ec2" {
+  ami           = "ami-013f17f36f8b"
   instance_type = "t2.micro"
 }
 ```
 
 ### 3) Initialize the working directory with below command.
 
-here, you man get the error [] if access_key and secret_key is not configured. in this case, we can provide it with below command 
+here, you man get the [Error](https://github.com/ankushshinde/Devops-practice/blob/master/terraform/errors/configuring-S3-Backend.md) if access_key and secret_key is not configured. in this case, we can provide it with below command 
 
 ```javascript
 terraform init -backend-config="access_key=<your-access-key>" -backend-config="secret_key=<your-secret-key>"
