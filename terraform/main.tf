@@ -7,7 +7,7 @@ provider "aws" {
 
 # Create ec2 instance
 resource "aws_instance" "my-first-instance" {
-  ami           = "ami-013f17f3"
+  ami           = "ami-013f17f36f8b"
   instance_type = "t2.micro"
   key_name = "instance-key"
   
