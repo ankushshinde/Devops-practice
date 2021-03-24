@@ -1,4 +1,4 @@
-store your tfstate file in remote location ---> s3
+# Store the tfstate file in remote location ---> aws s3
 
 terraform state file (terraform.tfstate) file
 When you enter terraform apply command in a directory, terraform saves the state of the resources changed in a file called the state file that is named terraform.tfstate in your working directory.
@@ -22,11 +22,13 @@ Working in a team: Backends can store their state remotely and protect that stat
 Keeping sensitive information off disk: State is retrieved from backends on demand and only stored in memory. If you're using a backend such as Amazon S3, the only location the state ever is persisted is in S3.
 
 Remote operations: For larger infrastructures or certain changes, terraform apply can take a long, long time. Some backends support remote operations which enable the operation to execute remotely. You can then turn off your computer and your operation will still complete. Paired with remote state storage and locking above, this also helps in team environments.
+
 Steps
-Demo: what happens without the remote state.
+what happens without the remote state.
 
-Create a s3backend.tf file ( file can be with any name ) in your working directory. Add this as the content
+### 1) Create a s3backend.tf file ( file can be with any name ) in your working directory. Add this as the content
 
+```javascript
 terraform {
   backend "s3" {
     bucket = "my-terraform-status"
@@ -34,10 +36,14 @@ terraform {
     region = "us-east-1"
   }
 }
+```
 Replace the bucket name, region and path with your desired names. Make sure the S3 bucket exists. 
+
 NOTE: the AWS Credentials need to have access to S3 to work with S3 as the backend to store state file.
 
-Add other main.tf (file can be with any name) file with resources and provider settings.
+### 2) Add other main.tf (file can be with any name) file with resources and provider settings.
+
+```javascript
 provider "aws" {
   access_key = "ACCESS_KEY_HERE"
   secret_key = "SECRET_KEY_HERE"
@@ -48,25 +54,32 @@ resource "aws_instance" "" {
   ami           = ""
   instance_type = "t2.micro"
 }
-Initialize the working directory with below command.
+```
+
+### 3) Initialize the working directory with below command.
+
 here, you man get the error [] if access_key and secret_key is not configured. in this case, we can provide it with below command 
 
+```javascript
 terraform init -backend-config="access_key=<your-access-key>" -backend-config="secret_key=<your-secret-key>"
-
+```
 otherwise simply execute below command.
 
+```javascript
 terraform init
-
-4 ) Apply the changes with this command
-
+```
+### 4 ) Apply the changes with this command
+```javascript
 terraform apply
+```
 In your working dirctory, you should't see any terraform.tfstate file. so let's go and check our s3 bucket, the state file should be there.
 
 Now, Let's destroy our resources with this command
-
+```javascript
 terraform destroy
-
+```
 Reference
+
 https://www.terraform.io/docs/state/index.html
 
 https://www.terraform.io/docs/state/remote.html
