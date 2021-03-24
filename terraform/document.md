@@ -1,4 +1,4 @@
-# Store the tfstate file in a remote location ---> aws-s3
+# The tfstate file store in a remote location ---> aws-s3
 
 ### The terraform state file is "terraform.tfstate".
 
